@@ -24,6 +24,11 @@ static int my_dev_open(struct inode* inode,struct file* file)
 pr_info("my_dev_open() is called.\n");
 return 0;
 }
+static long my_dev_ioctl(struct file *file,unsigned int cmd ,unsigned long args)
+{
+pr_info("my_dev_ioctl() is called.cmd= %d,args= %ld \n");
+return 0;
+}
 
 /*device close function */
 static int my_dev_close(struct inode *inode,struct file* file)
@@ -35,6 +40,7 @@ return 0;
 static const  struct file_operations my_dev_fops ={
 .owner= THIS_MODULE,
 .open = my_dev_open,
+.unlocked_ioctl=my_dev_ioctl,
 .release =my_dev_close
 };
 
